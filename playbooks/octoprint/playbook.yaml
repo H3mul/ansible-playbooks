@@ -5,24 +5,18 @@
     - h3mul.common
 
   roles:
-    - role: apt-packages
-      tags: apt-packages
-      vars:
-        apt_upgrade: safe
-        apt_packages:
-          - aptitude
-          - htop
-          - curl
-          - wget
-          - git
-          - apt-transport-https
-          - ca-certificates
-
-    - role: import-ssh-keys
+    - role: promtail
       tags:
-        - import-ssh-keys
+        - promtail
       vars:
-        gh_user: h3mul
+        promtail_loki_server_url: https://loki.hemul.net
+        promtail_config_scrape_configs: 
+          - job_name: octoprint
+            journal:
+              max_age: 12h
+            relabel_configs:
+              - source_labels: ['__journal__systemd_unit']
+                target_label: 'unit'
 
     - role: h3mul.octoprint
       tags:
