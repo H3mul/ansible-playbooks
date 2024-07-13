@@ -1,0 +1,37 @@
+- hosts: all
+  become: yes
+
+  collections:
+    - h3mul.common
+
+  roles:
+    - role: apt-packages
+      tags: apt-packages
+      vars:
+        apt_upgrade: safe
+        apt_packages:
+          - aptitude
+          - htop
+          - curl
+          - wget
+          - git
+          - apt-transport-https
+          - ca-certificates
+
+    - role: import-ssh-keys
+      tags:
+        - import-ssh-keys
+      vars:
+        gh_user: h3mul
+
+    - role: h3mul.octoprint
+      tags:
+        - octoprint
+      vars:
+        install_octoprint: true
+        install_mjpg_streamer: true
+        octoprint_user: octoprint
+        reset_config: false
+        webcam_width: 1280
+        webcam_height: 720
+

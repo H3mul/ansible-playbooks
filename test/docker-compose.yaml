@@ -1,0 +1,9 @@
+services:
+  ansible-test:
+    image: ghcr.io/h3mul/ansible-run:10.1.0
+    volumes:
+      - ../playbooks/octoprint:/config/:ro
+    command:
+      - /bin/bash
+      - -c
+      - "ansible-galaxy install -r /config/requirements.yaml -vv && tree /root/.ansible"

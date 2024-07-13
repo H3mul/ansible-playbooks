@@ -1,0 +1,9 @@
+roles:
+  - name: h3mul.octoprint
+    src: https://github.com/h3mul/ansible_octoprint
+    scm: git
+    version: master
+
+collections:
+  - name: https://github.com/H3mul/ansible-collections.git#/common
+    type: git
